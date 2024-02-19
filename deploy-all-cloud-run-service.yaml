@@ -1,0 +1,35 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        ./scripts/cloud_run_services/build_raw_to_domain_image.sh \
+        && ./scripts/cloud_run_services/build_add_fifa_ranking_to_stats_image.sh \
+        && ./scripts/cloud_run_services/build_move_processed_files_to_cold_bucket_image.sh
+    env:
+      - 'PROJECT_ID=$PROJECT_ID'
+      - 'LOCATION=$LOCATION'
+      - 'REPO_NAME=$_REPO_NAME'
+      - 'IMAGE_TAG=$_IMAGE_TAG'
+      - 'SERVICE_ACCOUNT=$_WORKFLOW_SA'
+      - 'SERVICE_NAME_RAW_TO_DOMAIN=$_SERVICE_NAME_RAW_TO_DOMAIN'
+      - 'SERVICE_NAME_ADD_FIFA_RANKING_TO_TEAM_STATS=$_SERVICE_NAME_ADD_FIFA_RANKING_TO_TEAM_STATS'
+      - 'SERVICE_NAME_MOVE_PROCESSED_FILE_TO_COLD_BUCKET=$_SERVICE_NAME_MOVE_PROCESSED_FILE_TO_COLD_BUCKET'
+  - name: google/cloud-sdk:429.0.0
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        ./scripts/cloud_run_services/deploy_raw_to_domain_service.sh \
+        && ./scripts/cloud_run_services/deploy_add_fifa_ranking_to_stats_service.sh \
+        && ./scripts/cloud_run_services/deploy_move_processed_files_to_cold_bucket_service.sh
+    env:
+      - 'PROJECT_ID=$PROJECT_ID'
+      - 'LOCATION=$LOCATION'
+      - 'REPO_NAME=$_REPO_NAME'
+      - 'IMAGE_TAG=$_IMAGE_TAG'
+      - 'SERVICE_ACCOUNT=$_WORKFLOW_SA'
+      - 'SERVICE_NAME_RAW_TO_DOMAIN=$_SERVICE_NAME_RAW_TO_DOMAIN'
+      - 'SERVICE_NAME_ADD_FIFA_RANKING_TO_TEAM_STATS=$_SERVICE_NAME_ADD_FIFA_RANKING_TO_TEAM_STATS'
+      - 'SERVICE_NAME_MOVE_PROCESSED_FILE_TO_COLD_BUCKET=$_SERVICE_NAME_MOVE_PROCESSED_FILE_TO_COLD_BUCKET'

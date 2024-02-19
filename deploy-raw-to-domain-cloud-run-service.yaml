@@ -1,0 +1,20 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ './scripts/cloud_run_services/build_raw_to_domain_image.sh' ]
+    env:
+      - 'PROJECT_ID=$PROJECT_ID'
+      - 'LOCATION=$LOCATION'
+      - 'REPO_NAME=$_REPO_NAME'
+      - 'IMAGE_TAG=$_IMAGE_TAG'
+      - 'SERVICE_ACCOUNT=$_WORKFLOW_SA'
+      - 'SERVICE_NAME_RAW_TO_DOMAIN=$_SERVICE_NAME_RAW_TO_DOMAIN'
+  - name: google/cloud-sdk:429.0.0
+    args: [ './scripts/cloud_run_services/deploy_raw_to_domain_service.sh' ]
+    env:
+      - 'PROJECT_ID=$PROJECT_ID'
+      - 'LOCATION=$LOCATION'
+      - 'REPO_NAME=$_REPO_NAME'
+      - 'IMAGE_TAG=$_IMAGE_TAG'
+      - 'SERVICE_ACCOUNT=$_WORKFLOW_SA'
+      - 'SERVICE_NAME_RAW_TO_DOMAIN=$_SERVICE_NAME_RAW_TO_DOMAIN'
+      - 'IMAGE_TAG=$_IMAGE_TAG'

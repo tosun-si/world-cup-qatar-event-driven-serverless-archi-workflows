@@ -1,0 +1,45 @@
+{
+  "@type": "type.googleapis.com/google.events.cloud.audit.v1.LogEntryData",
+  "protoPayload": {
+    "status": {},
+    "authenticationInfo": {
+      "principalEmail": "mtosun@groupbees.fr"
+    },
+    "requestMetadata": {
+      "callerIp": "",
+      "callerSuppliedUserAgent": ""
+    },
+    "serviceName": "bigquery.googleapis.com",
+    "methodName": "google.cloud.bigquery.v2.JobService.InsertJob",
+    "authorizationInfo": [
+      {
+        "resource": "projects/gb-poc-373711/datasets/qatar_fifa_world_cup/tables/world_cup_team_players_stat",
+        "permission": "bigquery.tables.updateData",
+        "granted": true
+      }
+    ],
+    "resourceName": "projects/gb-poc-373711/datasets/qatar_fifa_world_cup/tables/world_cup_team_players_stat",
+    "serviceData": {},
+    "metadata": {
+      "@type": "type.googleapis.com/google.cloud.audit.BigQueryAuditMetadata",
+      "tableDataChange": {
+        "jobName": "projects/gb-poc-373711/jobs/bquxjob_324403ee_18a7c47fd3c",
+        "truncated": true,
+        "insertedRowsCount": "1",
+        "reason": "QUERY"
+      }
+    }
+  },
+  "insertId": "g3t6gwe2dihk",
+  "resource": {
+    "type": "bigquery_dataset",
+    "labels": {
+      "project_id": "gb-poc-373711",
+      "dataset_id": "qatar_fifa_world_cup"
+    }
+  },
+  "timestamp": "2023-09-09T23:30:09.129734Z",
+  "severity": "INFO",
+  "logName": "projects/gb-poc-373711/logs/cloudaudit.googleapis.com%2Fdata_access",
+  "receiveTimestamp": "2023-09-09T23:30:09.768289048Z"
+}

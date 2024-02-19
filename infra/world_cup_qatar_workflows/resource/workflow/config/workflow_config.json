@@ -1,0 +1,14 @@
+{
+  "team_stats_raw_files_hot_source_uri": "gs://mazlum_dev/workflows/team_league/etl/dataflow/hot/*.json",
+  "team_stats_raw_files_cold_destination_uri": "gs://mazlum_dev/workflows/team_league/etl/dataflow/cold/",
+  "team_stat_dataflow_job": {
+    "job_name": "team-league-python-etl-workflows",
+    "service_account_email": "sa-dataflow-dev@gb-poc-373711.iam.gserviceaccount.com",
+    "flex_template_spec_gcs_file_path": "gs://mazlum_dev/dataflow/templates/team_league/python/team-league-python-cloud-build.json",
+    "staging_location": "gs://mazlum_dev/dataflow/staging",
+    "temp_location": "gs://mazlum_dev/dataflow/temp",
+    "input_json_file": "gs://mazlum_dev/team_league/input/json/input_teams_stats_raw.json",
+    "team_league_dataset": "mazlum_test",
+    "team_stats_table": "team_stat"
+  }
+}
