@@ -2,6 +2,7 @@ import pathlib
 from typing import Dict, List
 
 import functions_framework
+from flask import jsonify
 from google.api_core.exceptions import ClientError
 from google.cloud import storage, bigquery
 
@@ -56,9 +57,12 @@ def add_fifa_ranking_to_stats_domain_and_save_to_bq(request):
     )
 
     try:
-        load_job.result()
+        load_job = load_job.result()
 
         print("#######The Team players Domain Data with Fifa ranking was correctly loaded to the BigQuery table#######")
+
+        output = {"status": 200}
+        return jsonify(output)
     except ClientError as e:
         print(load_job.errors)
         raise e

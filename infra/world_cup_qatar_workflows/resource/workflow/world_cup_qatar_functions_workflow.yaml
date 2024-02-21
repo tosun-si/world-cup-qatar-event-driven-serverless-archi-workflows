@@ -9,19 +9,25 @@ main:
           - workflow_service_account_name: ${sys.get_env("GOOGLE_CLOUD_SERVICE_ACCOUNT_NAME")}
           - workflow_execution_id: ${sys.get_env("GOOGLE_CLOUD_WORKFLOW_EXECUTION_ID")}
     - launchRawToDomainFunction:
-        call: http.get
+        call: http.post
         args:
           url: https://europe-west1-gb-poc-373711.cloudfunctions.net/qatar-world-cup-stats-raw-to-domain-data-gcs-wf
+          auth:
+            type: OIDC
         result: launchRawToDomainFunction
     - launchAddFifaRankingToTeamStatsFunction:
-        call: http.get
+        call: http.post
         args:
           url: https://europe-west1-gb-poc-373711.cloudfunctions.net/qatar-world-cup-add-fifa-ranking-to-stats-domain-bq-wf
+          auth:
+            type: OIDC
         result: launchAddFifaRankingToTeamStatsFunction
     - launchMoveProcessedFilesToColdBucketFunction:
-        call: http.get
+        call: http.post
         args:
           url: https://europe-west1-gb-poc-373711.cloudfunctions.net/qatar-world-cup-move-processed-files-to-cold-bucket-wf
+          auth:
+            type: OIDC
         result: launchMoveProcessedFilesToColdBucketFunction
     - returnResult:
         return: launchMoveProcessedFilesToColdBucketFunction

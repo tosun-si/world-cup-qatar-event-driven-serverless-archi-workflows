@@ -16,9 +16,9 @@ func init() {
 }
 
 func moveProcessedFilesToColdBucket(w http.ResponseWriter, r *http.Request) {
-	rawSourceBucket := "event-driven-functions-qatar-fifa-world-cup-stats-raw"
+	rawSourceBucket := "event-driven-functions-qatar-fifa-world-cup-stats-raw-wf"
 	rawSourceObject := "input/stats/world_cup_team_players_stats_raw_ndjson.json"
-	domainSourceBucket := "event-driven-functions-qatar-fifa-world-cup-stats"
+	domainSourceBucket := "event-driven-functions-qatar-fifa-world-cup-stats-wf"
 	domainSourceObject := "input/stats/world_cup_team_players_stats_domain.json"
 
 	DestBucket := "event-driven-qatar-fifa-world-cup-stats-cold"
@@ -33,8 +33,11 @@ func moveProcessedFilesToColdBucket(w http.ResponseWriter, r *http.Request) {
 	)
 
 	if errMoveRawFileColdBucket != nil {
-		err := fmt.Errorf("raw.moveFile: %w", errMoveRawFileColdBucket)
+		err := fmt.Sprintf("raw.moveFile: %w", errMoveRawFileColdBucket)
+
 		log.Print(err)
+		http.Error(w, err, http.StatusInternalServerError)
+
 		return
 	}
 
@@ -46,10 +49,15 @@ func moveProcessedFilesToColdBucket(w http.ResponseWriter, r *http.Request) {
 	)
 
 	if errMoveDomainFileColdBucket != nil {
-		err := fmt.Errorf("domain.moveFile: %w", errMoveDomainFileColdBucket)
+		err := fmt.Sprintf("domain.moveFile: %w", errMoveDomainFileColdBucket)
+
 		log.Print(err)
+		http.Error(w, err, http.StatusInternalServerError)
+
 		return
 	}
+
+	fmt.Fprintf(w, "OK")
 
 	return
 }

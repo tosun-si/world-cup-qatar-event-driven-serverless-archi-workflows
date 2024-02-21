@@ -1,6 +1,7 @@
 from typing import List
 
 import functions_framework
+from flask import jsonify
 from google.cloud import storage
 from toolz.curried import pipe
 
@@ -37,3 +38,6 @@ def raw_to_domain_data_and_upload_to_gcs(request):
     )
 
     print("#######The GCS file for players stats domain data was correctly uploaded to the GCS#######")
+
+    output = {"status": 200}
+    return jsonify(output)
