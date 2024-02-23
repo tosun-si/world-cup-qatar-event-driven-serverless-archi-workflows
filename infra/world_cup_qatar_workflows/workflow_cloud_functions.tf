@@ -1,10 +1,10 @@
 resource "google_workflows_workflow" "workflow_world_cup_functions" {
   project         = var.project_id
   region          = var.location
-  name            = var.workflow_name
+  name            = local.world_cup_qatar_functions_workflow_config["workflowName"]
   description     = "Workflow Event Driven and Serverless World Cup Cloud Functions"
   service_account = var.workflow_sa
-  source_contents = local.world_cup_qatar_functions_workflow_yaml_as_string
+  source_contents = file("${path.module}/${local.world_cup_qatar_functions_workflow_config["workflowFilePath"]}")
 }
 
 resource "google_eventarc_trigger" "workflow_world_cup_functions_trigger" {
@@ -13,8 +13,7 @@ resource "google_eventarc_trigger" "workflow_world_cup_functions_trigger" {
   ]
 
   project         = var.project_id
-  #  name            = "var.workflow_trigger.event_arc.name"
-  name            = "workflow-world-cup-cloud-functions-trigger"
+  name            = local.world_cup_qatar_functions_workflow_config["workflowTriggerName"]
   location        = var.location
   service_account = var.workflow_sa
 
@@ -24,7 +23,7 @@ resource "google_eventarc_trigger" "workflow_world_cup_functions_trigger" {
   }
   matching_criteria {
     attribute = "bucket"
-    value     = "event-driven-functions-qatar-fifa-world-cup-stats-raw-wf"
+    value     = local.world_cup_qatar_functions_workflow_config["workflowTriggerBucket"]
   }
 
   destination {

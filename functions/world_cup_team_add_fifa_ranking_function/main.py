@@ -10,7 +10,7 @@ from domain.team_player_stats_with_fifa_ranking_mapper import to_stats_domain_di
 
 
 @functions_framework.http
-def add_fifa_ranking_to_stats_domain_and_save_to_bq(request):
+def add_fifa_ranking_to_stats_domain_and_save_to_bq():
     input_bucket = "event-driven-functions-qatar-fifa-world-cup-stats-wf"
     input_object = "input/stats/world_cup_team_players_stats_domain.json"
 
@@ -61,7 +61,7 @@ def add_fifa_ranking_to_stats_domain_and_save_to_bq(request):
 
         print("#######The Team players Domain Data with Fifa ranking was correctly loaded to the BigQuery table#######")
 
-        output = {"status": 200}
+        output = {"status": 201}
         return jsonify(output)
     except ClientError as e:
         print(load_job.errors)

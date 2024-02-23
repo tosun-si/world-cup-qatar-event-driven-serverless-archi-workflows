@@ -1,0 +1,26 @@
+main:
+  params: [ event ]
+  steps:
+    - launchRawToDomainService:
+        call: http.post
+        args:
+          url: https://qatar-world-cup-stats-raw-to-domain-data-gcs-sv-4wtmsxga6q-ew.a.run.app
+          auth:
+            type: OIDC
+        result: launchRawToDomainService
+    - launchAddFifaRankingToTeamStatsService:
+        call: http.post
+        args:
+          url: https://qatar-world-cup-add-fifa-ranking-to-stats-domainl-4wtmsxga6q-ew.a.run.app
+          auth:
+            type: OIDC
+        result: launchAddFifaRankingToTeamStatsService
+    - launchMoveProcessedFilesToColdBucketService:
+        call: http.post
+        args:
+          url: https://qatar-world-cup-move-processed-files-to-cold-buck-4wtmsxga6q-ew.a.run.app
+          auth:
+            type: OIDC
+        result: launchMoveProcessedFilesToColdBucketService
+    - returnResult:
+        return: launchMoveProcessedFilesToColdBucketService

@@ -2,7 +2,7 @@ import os
 from typing import List
 
 import uvicorn
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from google.cloud import storage
 from toolz.curried import pipe
 
@@ -14,14 +14,9 @@ app = FastAPI()
 
 
 @app.post("/")
-async def raw_to_domain_data_and_upload_to_gcs_service(request: Request):
-    headers = request.headers
-
-    input_bucket = headers["ce-bucket"]
-    input_object = headers["ce-subject"].replace("objects/", "")
-
-    print(f"Bucket: {input_bucket}")
-    print(f"File: {input_object}")
+async def raw_to_domain_data_and_upload_to_gcs_service():
+    input_bucket = 'event-driven-services-qatar-fifa-world-cup-stats-raw-wf'
+    input_object = 'input/stats/world_cup_team_players_stats_raw_ndjson.json'
 
     storage_client = storage.Client()
 
@@ -35,7 +30,7 @@ async def raw_to_domain_data_and_upload_to_gcs_service(request: Request):
 
     team_player_stats_domain_as_ndjson_str = to_team_player_stats_as_ndjson_string(team_player_stats_domain)
 
-    output_bucket = storage_client.get_bucket('event-driven-services-qatar-fifa-world-cup-stats')
+    output_bucket = storage_client.get_bucket('event-driven-services-qatar-fifa-world-cup-stats-wf')
     output_blob = output_bucket.blob('input/stats/world_cup_team_players_stats_domain.json')
 
     output_blob.upload_from_string(

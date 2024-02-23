@@ -10,7 +10,7 @@ from domain.team_player_stats_mapper import to_team_players_stats_domain, to_tea
 
 
 @functions_framework.http
-def raw_to_domain_data_and_upload_to_gcs(request):
+def raw_to_domain_data_and_upload_to_gcs():
     input_bucket = 'event-driven-functions-qatar-fifa-world-cup-stats-raw-wf'
     input_object = 'input/stats/world_cup_team_players_stats_raw_ndjson.json'
 
@@ -39,5 +39,5 @@ def raw_to_domain_data_and_upload_to_gcs(request):
 
     print("#######The GCS file for players stats domain data was correctly uploaded to the GCS#######")
 
-    output = {"status": 200}
+    output = {"status": 201}
     return jsonify(output)

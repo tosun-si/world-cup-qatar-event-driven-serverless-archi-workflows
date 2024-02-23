@@ -1,0 +1,7 @@
+{
+  "workflowName": "world_cup_qatar_cloud_functions_workflows",
+  "workflowDescription": "Workflow Event Driven and Serverless World Cup Cloud Functions",
+  "workflowFilePath": "resource/world_cup_qatar_functions_workflow.yaml",
+  "workflowTriggerName": "workflow-world-cup-cloud-functions-trigger",
+  "workflowTriggerBucket": "event-driven-functions-qatar-fifa-world-cup-stats-raw-wf"
+}

@@ -1,7 +1,7 @@
 import pathlib
 from typing import Dict, List
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from google.api_core.exceptions import ClientError
 from google.cloud import storage, bigquery
 
@@ -12,14 +12,9 @@ app = FastAPI()
 
 
 @app.post("/")
-async def add_fifa_ranking_to_stats_and_save_to_bq_service(request: Request):
-    headers = request.headers
-
-    input_bucket = headers["ce-bucket"]
-    input_object = headers["ce-subject"].replace("objects/", "")
-
-    print(f"Bucket: {input_bucket}")
-    print(f"File: {input_object}")
+async def add_fifa_ranking_to_stats_and_save_to_bq_service():
+    input_bucket = 'event-driven-services-qatar-fifa-world-cup-stats-wf'
+    input_object = 'input/stats/world_cup_team_players_stats_domain.json'
 
     storage_client = storage.Client()
 
@@ -48,7 +43,7 @@ async def add_fifa_ranking_to_stats_and_save_to_bq_service(request: Request):
         source_format=bigquery.SourceFormat.NEWLINE_DELIMITED_JSON
     )
 
-    table_id = "qatar_fifa_world_cup.world_cup_team_players_stat"
+    table_id = "qatar_fifa_world_cup.world_cup_team_players_stat_wf"
 
     load_job = bigquery_client.load_table_from_json(
         json_rows=teams_player_stats_domain_with_fifa_ranking,
