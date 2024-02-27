@@ -10,7 +10,7 @@ from domain.team_player_stats_mapper import to_team_players_stats_domain, to_tea
 
 
 @functions_framework.http
-def raw_to_domain_data_and_upload_to_gcs():
+def raw_to_domain_data_and_upload_to_gcs(request):
     input_bucket = 'event-driven-functions-qatar-fifa-world-cup-stats-raw-wf'
     input_object = 'input/stats/world_cup_team_players_stats_raw_ndjson.json'
 

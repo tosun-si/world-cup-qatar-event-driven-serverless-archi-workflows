@@ -10,7 +10,7 @@ from domain.team_player_stats_with_fifa_ranking_mapper import to_stats_domain_di
 
 
 @functions_framework.http
-def add_fifa_ranking_to_stats_domain_and_save_to_bq():
+def add_fifa_ranking_to_stats_domain_and_save_to_bq(request):
     input_bucket = "event-driven-functions-qatar-fifa-world-cup-stats-wf"
     input_object = "input/stats/world_cup_team_players_stats_domain.json"
 
