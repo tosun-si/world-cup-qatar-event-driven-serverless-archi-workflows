@@ -1,4 +1,4 @@
-# world-cup-qatar-event-driven-serverless-archi
+# world-cup-qatar-event-driven-serverless-archi-workflows
 
 Project showing a use case with a full Event Driven and Serverless Architecture with Cloud Workflows.\
 
