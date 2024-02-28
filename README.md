@@ -1,16 +1,37 @@
 # world-cup-qatar-event-driven-serverless-archi
 
-Project showing a use case with a full Event Driven and Serverless Architecture.\
-The project uses Event Arc and events on GCS and BigQuery.
+Project showing a use case with a full Event Driven and Serverless Architecture with Cloud Workflows.\
+
+Previously I presented the same use case, but only with Cloud Functions, Cloud Run Services and Event Arc.
+
+The link to the previous use case : 
+- Github : 
+https://github.com/tosun-si/world-cup-qatar-event-driven-serverless-archi
+- YouTube in EN : 
+https://youtu.be/szmKO4Tdyj8
+- YouTube in FR : 
+https://youtu.be/RtUI5Qzneiw
+
+With a Workflow, we have a powerful way to orchestrate the tasks in our architecture.\
+Workflows is a tool dedicated to orchestration, and we can execute tasks in sequence and parallel, that's why I wanted to
+show this use with this different approach.
+
+The Workflow is created with Cloud Build and Terraform, and will be triggered in real time.\
+The use case is firstly executed with the Workflow and Cloud Functions (Python, Go)\
+Then the use case is executed with the Workflow and Cloud Run services.
 
 This project uses real data for players statistics of Qatar Fifa World Cup.\ 
 Transformations are applied to calculate domain data from raw and the result is stored in a BigQuery table.
 
-The use case is executed with Cloud Functions then Cloud Run Services (Python and Go).
-
 At the end of this real world use case, data will be visualized with Looker Studio. 
 
-![qatar_fifa_world_cup_full_event_driven_and_serverless_archi.png](diagram%2Fqatar_fifa_world_cup_full_event_driven_and_serverless_archi.png)
+The link to the videos for this use case :
+- YouTube in EN : 
+https://youtu.be/S1gddI9mO9s
+- YouTube in FR : 
+https://youtu.be/BB_E6Ng9AAw
+
+![qatar_fifa_world_cup_full_event_driven_and_serverless_archi_wf.png](diagram%2Fqatar_fifa_world_cup_full_event_driven_and_serverless_archi_wf.png)
 
 ## Use case with Cloud Functions
 
