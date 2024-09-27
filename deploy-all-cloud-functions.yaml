@@ -2,7 +2,7 @@ steps:
   - name: google/cloud-sdk:429.0.0
     entrypoint: 'bash'
     args:
-      - '-c'
+      - '-ec'
       - |
         ./scripts/cloud_functions/deploy_raw_to_domain_function.sh \
         && ./scripts/cloud_functions/deploy_add_fifa_ranking_to_stats_function.sh \
